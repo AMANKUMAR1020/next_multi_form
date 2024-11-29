@@ -1,23 +1,25 @@
 // 'use server';
 
-// export const stepOneFormAction = () => {};
+// export const stepThreeFormAction = () => {};
 
 
 
 
 
 'use server';
-import { stepOneSchema } from '../../schemas';
+// import { stepThreeSchema } from '@/schemas';
+import { stepThreeSchema } from '@/app/schemas';
 // import { AddDealRoutes, FormErrors } from '@/types';
 import { AddDealRoutes,FormErrors } from '@/app/types';
 import { redirect } from 'next/navigation';
 
-export const stepOneFormAction = (
+export const stepThreeFormAction = (
   prevState: FormErrors | undefined,
   formData: FormData
 ): FormErrors | undefined => {
   const data = Object.fromEntries(formData.entries());
-  const validated = stepOneSchema.safeParse(data);
+  const validated = stepThreeSchema.safeParse(data);
+  console.log(validated.success);
   if (!validated.success) {
     const errors = validated.error.issues.reduce((acc: FormErrors, issue) => {
       const path = issue.path[0] as string;
@@ -27,5 +29,5 @@ export const stepOneFormAction = (
     return errors;
   }
 
-  redirect(AddDealRoutes.COUPON_DETAILS);
+  redirect(AddDealRoutes.REVIEW_DEAL);
 };

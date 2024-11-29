@@ -1,23 +1,25 @@
 // 'use server';
 
-// export const stepOneFormAction = () => {};
+// export const stepTwoFormAction = () => {};
+
 
 
 
 
 
 'use server';
-import { stepOneSchema } from '../../schemas';
+// import { stepTwoSchema } from '@/schemas';
 // import { AddDealRoutes, FormErrors } from '@/types';
-import { AddDealRoutes,FormErrors } from '@/app/types';
 import { redirect } from 'next/navigation';
+import { AddDealRoutes, FormErrors } from '@/app/types';
+import { stepTwoSchema } from '@/app/schemas';
 
-export const stepOneFormAction = (
+export const stepTwoFormAction = (
   prevState: FormErrors | undefined,
   formData: FormData
 ): FormErrors | undefined => {
   const data = Object.fromEntries(formData.entries());
-  const validated = stepOneSchema.safeParse(data);
+  const validated = stepTwoSchema.safeParse(data);
   if (!validated.success) {
     const errors = validated.error.issues.reduce((acc: FormErrors, issue) => {
       const path = issue.path[0] as string;
@@ -27,5 +29,5 @@ export const stepOneFormAction = (
     return errors;
   }
 
-  redirect(AddDealRoutes.COUPON_DETAILS);
+  redirect(AddDealRoutes.CONTACT_INFO);
 };
